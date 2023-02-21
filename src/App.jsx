@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Routes, Route
 } from 'react-router-dom';
-import { Sidebar } from './component/Sidebar/Sidebar';
+import { Sidebar } from './component/sidebar/Sidebar';
 import { HomePage } from './component/home/HomePage';
 import { Profile } from './component/profile/Profile';
 import { Photos } from './component/profile/Photos';

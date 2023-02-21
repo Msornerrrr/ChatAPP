@@ -1,17 +1,17 @@
 import { Avatar, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Container } from '@mui/system';
 
-const optionMap = {
-  'Posts': {
-    route: '',
+const routesMap = {
+  '': {
+    name: 'Posts'
   },
-  'Photos': {
-    route: 'photos',
+  'photos': {
+    name: 'Photos'
   },
-  'Likes': {
-    route: 'likes',
+  'likes': {
+    name: 'Likes'
   }
 }
 
@@ -19,11 +19,12 @@ export const Profile = () => {
   // use navigation
   const navigate = useNavigate();
 
-  const [currentOption, setCurrentOption] = useState('Posts');
+  const location = useLocation();
+  const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[2] ?? '');
 
   const handleButtonClick = (opt) => {
     setCurrentOption(opt);
-    navigate(optionMap[opt].route);
+    navigate(opt);
   }
 
   return (
@@ -49,14 +50,14 @@ export const Profile = () => {
       </Stack>
 
       <Stack direction='row' spacing={5} justifyContent='center'>
-        {['Posts', 'Photos', 'Likes'].map(opt => (
+        {['', 'photos', 'likes'].map(opt => (
           <Button key={opt} variant='text' size='large' onClick={() => handleButtonClick(opt)}
             sx={{ padding: '15px 40px', borderRadius: 0, borderBottom: currentOption === opt && '3px solid #46bee5' }}>
-            {opt} </Button>
+            {routesMap[opt].name} </Button>
         ))}
       </Stack>
       <Divider />
-      <Container sx={{ width: '80%', margin: '20px auto', border: '1px solid black' }}>
+      <Container sx={{ width: '80%', margin: '20px auto' }}>
         <Outlet />
       </Container>
     </>

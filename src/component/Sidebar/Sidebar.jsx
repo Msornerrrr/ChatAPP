@@ -3,8 +3,8 @@ import {
   List, ListItem, ListItemButton, ListItemIcon, ListItemText,
   Typography
 } from '@mui/material';
-import { optionMap } from './SidebarModel'
-import { useNavigate } from 'react-router-dom';
+import { routesMap } from './SidebarModel'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import logo from '../../images/chat.png';
@@ -16,12 +16,13 @@ export const Sidebar = () => {
   const navigate = useNavigate();
 
   // current option
-  const [currentOption, setCurrentOption] = useState('Home');
+  const location = useLocation();
+  const [currentOption, setCurrentOption] = useState(location.pathname.split('/')[1] ?? '');
 
   // click to change current option
   const handleClick = (option) => {
     setCurrentOption(option);
-    navigate(optionMap[option].route)
+    navigate(option)
   };
 
   const mouseEnterIcon = event => {
@@ -69,16 +70,16 @@ export const Sidebar = () => {
       </Toolbar>
       <Divider />
       <List>
-        {['Home', 'Messages', 'Explore', 'Create', 'Profile'].map(opt => (
+        {['', 'messages', 'explore', 'create', 'profile'].map(opt => (
           <ListItem key={opt} onClick={() => { handleClick(opt) }}>
             <ListItemButton>
               <ListItemIcon>
-                {currentOption === opt ? optionMap[opt].icon : optionMap[opt].iconOutlined}
+                {currentOption === opt ? routesMap[opt].icon : routesMap[opt].iconOutlined}
               </ListItemIcon>
               <ListItemText primaryTypographyProps={{
                 fontSize: 18,
                 fontWeight: currentOption === opt ? 'bold' : 'normal'
-              }} primary={opt} />
+              }} primary={ routesMap[opt].name } />
             </ListItemButton>
           </ListItem>
         ))}
