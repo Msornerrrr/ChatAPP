@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, Avatar, IconButton } from "@mui/material"
+import { Stack, Typography, Avatar, IconButton } from "@mui/material"
 import { MoreHoriz, FavoriteBorder, FavoriteOutlined, CommentOutlined } from '@mui/icons-material';
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export const Post = ({ /* Avatar, */ username, date, text, isLiked }) => {
           <Typography variant="h6"> {username} </Typography>
           <Typography variant="subtitle1"> {date} </Typography>
         </Stack>
-        <Box display='flex' justifySelf='end'> <MoreHoriz /> </Box>
+        <IconButton edge='end'> <MoreHoriz /> </IconButton>
       </Stack>
       <Typography variant="body1"> {text} </Typography>
       <Stack direction='row' spacing={2} alignItems='center'>
